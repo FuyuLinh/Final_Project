@@ -41,7 +41,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String query_for_search = query.getText().toString();
-                mainActivity.gotoBlank(query_for_search);
+                mainActivity.searchResult(query_for_search);
             }
         });
         return view;

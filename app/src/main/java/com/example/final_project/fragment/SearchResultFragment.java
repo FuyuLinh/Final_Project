@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.final_project.R;
 import com.example.final_project.api.BookAPI;
@@ -17,14 +18,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchResultFragment extends Fragment {
+    public static final String TAG = SearchResultFragment.class.getName();
+    TextView textView;
     BookAPI api;
-    private View view;
+    View view;
     MainActivity mainActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_blank, container, false);
+        Bundle bundleRecive = getArguments();
+        if(bundleRecive!= null) {
+            String query= (String) bundleRecive.get("query_for_search");
+            if(query!=null) {
+                //Sử dụng query truy vấn đến books api
+            }
+        }
         return view;
     }
 }
