@@ -28,10 +28,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.PostVi
         final Book book = data.get(position);
         final Book.BookInfo info = book.getInfo();
         if (info != null) {
-//            Random rnd = new Random();
-//            int currentColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-//            holder.parent.setCardBackgroundColor(currentColor);
-
             //Title
             holder.title.setText(info.getTitle());
 
@@ -91,7 +87,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.PostVi
         public ImageView image;
         public TextView title;
         public TextView authors;
-        public TextView description;
         public String path;
         public CardView parent;
 
