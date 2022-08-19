@@ -4,10 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Final_Project/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Final_Project/app/src/main/res/layout/book_item.xml" value="0.17447916666666666" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Final_Project/app/src/main/res/layout/fragment_blank.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Final_Project/app/src/main/res/layout/fragment_search.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Final_Project/app/src/main/res/layout/fragment_search_result.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Final_Project/app/src/main/res/layout/search_filter.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/Final_Project/app/src/main/res/layout/search_fragment.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/Final_Project/app/src/main/res/layout/selected_filter.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/drawable/ic_drop_down.xml" value="0.2085" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/selected_filter.xml" value="0.28229166666666666" />

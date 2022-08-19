@@ -33,7 +33,6 @@ public class SearchResultFragment extends Fragment {
         if(bundleRecive!= null) {
             String query= (String) bundleRecive.get("query_for_search");
             if(query!=null) {
-                //Sử dụng query truy vấn đến books api
 
             }
         }
