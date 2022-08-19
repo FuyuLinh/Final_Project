@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public class BookAPI {
+public interface BookAPI {
     @GET("volumes")
     Call<SearchResult> searchBook(@Query("q") String query, @Query("maxResults") int maxResults);
 }

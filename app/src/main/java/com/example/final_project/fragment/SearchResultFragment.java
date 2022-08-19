@@ -19,6 +19,7 @@ import retrofit2.Response;
 
 public class SearchResultFragment extends Fragment {
     public static final String TAG = SearchResultFragment.class.getName();
+    public static final int MAX_RESULTS = 40;
     TextView textView;
     BookAPI api;
     View view;
@@ -33,6 +34,7 @@ public class SearchResultFragment extends Fragment {
             String query= (String) bundleRecive.get("query_for_search");
             if(query!=null) {
                 //Sử dụng query truy vấn đến books api
+
             }
         }
         return view;
