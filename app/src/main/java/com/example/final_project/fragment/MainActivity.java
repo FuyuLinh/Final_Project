@@ -20,13 +20,13 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentContainerView,searchFragment);
         fragmentTransaction.commit();
     }
-    public void searchResult(String string){
+    public void gotoBlank(String querry, String filter){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        SearchResultFragment searchResultFragment = new SearchResultFragment();
+        BlankFragment blankFragment = new BlankFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("query_for_search",string);
-        searchResultFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.fragmentContainerView,searchResultFragment);
+        bundle.putSerializable("query_for_search",querry +'/'+ filter);
+        blankFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fragmentContainerView,blankFragment);
         fragmentTransaction.addToBackStack(BlankFragment.TAG);
         fragmentTransaction.commit();
     }
