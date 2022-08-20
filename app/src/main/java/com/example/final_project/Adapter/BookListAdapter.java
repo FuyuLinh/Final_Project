@@ -46,7 +46,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.PostVi
                         .centerCrop()
                         .fit()
                         .into(holder.image);
-
             }
         }
     }
