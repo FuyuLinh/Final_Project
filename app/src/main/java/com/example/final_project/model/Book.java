@@ -2,87 +2,122 @@ package com.example.final_project.model;
 
 import androidx.annotation.NonNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Book implements Serializable {
-    private String id;
-    private BookInfo info;
-    public String getId() {
+    private int id;
+    private String title;
+    private String subtitle;
+    private ArrayList<String> authors;
+    private String publisher;
+    private String publishedDate;
+    private String description;
+    private int pageCount;
+    private String thumbnail;
+    private String previewLink;
+    private String infoLink;
+
+    public Book(int id, String title, String subtitle, ArrayList<String> authors, String publisher, String publishedDate, String description, int pageCount, String thumbnail, String previewLink, String infoLink) {
+        this.id = id;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.authors = authors;
+        this.publisher = publisher;
+        this.publishedDate = publishedDate;
+        this.description = description;
+        this.pageCount = pageCount;
+        this.thumbnail = thumbnail;
+        this.previewLink = previewLink;
+        this.infoLink = infoLink;
+    }
+
+    public int getId() {
         return id;
     }
-    public void setId(String id) {
+
+    public void setId(int id) {
         this.id = id;
     }
-    public BookInfo getInfo() {
-        return info;
+
+    public String getTitle() {
+        return title;
     }
-    public void setInfo(BookInfo info) {
-        this.info = info;
+
+    public void setTitle(String title) {
+        this.title = title;
     }
-    public class BookInfo implements Serializable {
-        private String title;
-        private String pageCount;
-        private String publisher;
-        private String publishedDate;
-        private String subtitle;
-        private List<String> authors;
-        private String description;
-        private String infoLink;
-        private Map<String, String> imageLinks;
-        public String getTitle() {
-            return title;
-        }
-        public void setTitle(String title) {
-            this.title = title;
-        }
-        public List<String> getAuthors() {
-            return authors;
-        }
-        public void setAuthors(List<String> authors) {
-            this.authors = authors;
-        }
-        public String getDescription() {
-            return description;
-        }
-        public void setDescription(String description) {
-            this.description = description;
-        }
-        public String getInfoLink() {
-            return infoLink;
-        }
-        public void setInfoLink(String infoLink) {
-            this.infoLink = infoLink;
-        }
-        public Map<String, String> getImageLinks() {
-            return imageLinks;
-        }
-        public void setImageLinks(Map<String, String> imageLinks) {
-            this.imageLinks = imageLinks;
-        }
-        public String getPageCount() {
-            return pageCount;
-        }
-        public void setPageCount(String pageCount) {
-            this.pageCount = pageCount;
-        }
-        public String getPublisher() {
-            return publisher;
-        }
-        public void setPublisher(String publisher) {
-            this.publisher = publisher;
-        }
-        public String getPublishedDate() {
-            return publishedDate;
-        }
-        public void setPublishedDate(String publishedDate) {
-            this.publishedDate = publishedDate;
-        }
-        public String getSubtitle() {
-            return subtitle;
-        }
-        public void setSubtitle(String subtitle) {
-            this.subtitle = subtitle;
-        }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public ArrayList<String> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(ArrayList<String> authors) {
+        this.authors = authors;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getPreviewLink() {
+        return previewLink;
+    }
+
+    public void setPreviewLink(String previewLink) {
+        this.previewLink = previewLink;
+    }
+
+    public String getInfoLink() {
+        return infoLink;
+    }
+
+    public void setInfoLink(String infoLink) {
+        this.infoLink = infoLink;
     }
 }

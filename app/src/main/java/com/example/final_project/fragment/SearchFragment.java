@@ -69,7 +69,7 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 String query_for_search = query.getText().toString();
                 String str = filter_search[0];
-                mainActivity.gotoBlank(query_for_search,str);
+                mainActivity.gotoSearchResults(query_for_search,str);
             }
         });
         return view;
