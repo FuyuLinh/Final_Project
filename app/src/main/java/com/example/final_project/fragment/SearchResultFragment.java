@@ -36,7 +36,6 @@ import java.util.ArrayList;
 
 public class SearchResultFragment extends Fragment {
     public static final String TAG = SearchResultFragment.class.getName();
-    public static final int MAX_RESULTS = 40;
     TextView textView;
     View view;
     MainActivity mainActivity;
@@ -72,22 +71,7 @@ public class SearchResultFragment extends Fragment {
 
         return view;
     }
-    /*public void searchBook(final String query)
-    {
-        Call<SearchResult> call = api.searchBook(query, MAX_RESULTS);
-        call.enqueue(new Callback<SearchResult>() {
-            @Override
-            public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
-                SearchResult result = response.body();
-                if (result != null && result.getTotalItems() > 0) {
-                }
-            }
 
-            @Override
-            public void onFailure(Call<SearchResult> call, Throwable t) {
-
-            }
-        });*/
     private void getBooksInfo(String query) {
         // creating a new array list.
         bookInfoArrayList = new ArrayList<>();
@@ -110,42 +94,56 @@ public class SearchResultFragment extends Fragment {
                 try {
                     JSONArray itemsArray = response.getJSONArray("items");
                     for (int i = 0; i < itemsArray.length(); i++) {
+                        ArrayList<String> authors = new ArrayList<>();
                         JSONObject itemsObj = itemsArray.getJSONObject(i);
                         JSONObject volumeObj = itemsObj.getJSONObject("volumeInfo");
-
-                        String title = volumeObj.optString("title");
-                        String subtitle = volumeObj.optString("subtitle");
-
-                        JSONArray authorsArray = volumeObj.getJSONArray("authors");
-                        String publisher = volumeObj.optString("publisher");
-                        String publishedDate = volumeObj.optString("publishedDate");
-                        String description = volumeObj.optString("description");
-                        int pageCount = volumeObj.optInt("pageCount");
-                        JSONObject imageLinks = volumeObj.optJSONObject("imageLinks");
-                        String thumbnail = imageLinks.optString("thumbnail");
-                        String previewLink = volumeObj.optString("previewLink");
-                        String infoLink = volumeObj.optString("infoLink");
-                        JSONObject saleInfoObj = itemsObj.optJSONObject("saleInfo");
-                        //String buyLink = saleInfoObj.optString("buyLink");
-                        ArrayList<String> authors = new ArrayList<>();
-                        if (authorsArray.length() != 0) {
-                            for (int j = 0; j < authorsArray.length(); j++) {
-                                authors.add(authorsArray.optString(i));
+                        String language = volumeObj.optString("language");
+                        if(language.equals("en")) {
+                            String title = volumeObj.optString("title");
+                            String subtitle = volumeObj.optString("subtitle");
+                            if(volumeObj.has("authors")) {
+                                JSONArray authorsArray = volumeObj.getJSONArray("authors");
+                                if (authorsArray.length() != 0) {
+                                    for (int j = 0; j < authorsArray.length(); j++) {
+                                        authors.add(authorsArray.optString(j));
+                                    }
+                                }
                             }
+                            else
+                            {
+                                authors.add("No author");
+                            }
+
+                            String publisher = volumeObj.optString("publisher");
+                            String publishedDate = volumeObj.optString("publishedDate");
+                            String description = volumeObj.optString("description");
+                            int pageCount = volumeObj.optInt("pageCount");
+                            JSONObject imageLinks = volumeObj.optJSONObject("imageLinks");
+                            String thumbnail = imageLinks.optString("thumbnail");
+                            String previewLink = volumeObj.optString("previewLink");
+                            String infoLink = volumeObj.optString("infoLink");
+                            JSONObject saleInfoObj = itemsObj.optJSONObject("saleInfo");
+                            //String buyLink = saleInfoObj.optString("buyLink");
+
+                            // after extracting all the data we are
+                            // saving this data in our modal class.
+                            String base = thumbnail.substring(5);
+                            thumbnail = "https:" + base;
+                            Book book = new Book(i, title, subtitle, authors, publisher, publishedDate, description, pageCount, thumbnail, previewLink, infoLink, language);
+
+
+                            // below line is use to pass our modal
+                            // class in our array list.
+                            bookInfoArrayList.add(book);
+                            // below line is use to pass our
+                            // array list in adapter class.
                         }
-                        // after extracting all the data we are
-                        // saving this data in our modal class.
-                        String base = thumbnail.substring(5);
-                        thumbnail = "https:"+ base;
-                        Book book = new Book(i ,title, subtitle, authors, publisher, publishedDate, description, pageCount, thumbnail, previewLink, infoLink);
-
-                        // below line is use to pass our modal
-                        // class in our array list.
-                        bookInfoArrayList.add(book);
-
-                        // below line is use to pass our
-                        // array list in adapter class.
-                        BookListAdapter adapter = new BookListAdapter(bookInfoArrayList,mainActivity);
+                        BookListAdapter adapter = new BookListAdapter(bookInfoArrayList, mainActivity, new BookListAdapter.ICLickItemListener() {
+                            @Override
+                            public void onClickBook(Book book) {
+                                mainActivity.gotoDetailFragment("object",book);
+                            }
+                        });
 
                         // below line is use to add linear layout
                         // manager for our recycler view.

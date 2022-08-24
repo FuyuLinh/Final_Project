@@ -18,8 +18,9 @@ public class Book implements Serializable {
     private String thumbnail;
     private String previewLink;
     private String infoLink;
+    private String language;
 
-    public Book(int id, String title, String subtitle, ArrayList<String> authors, String publisher, String publishedDate, String description, int pageCount, String thumbnail, String previewLink, String infoLink) {
+    public Book(int id, String title, String subtitle, ArrayList<String> authors, String publisher, String publishedDate, String description, int pageCount, String thumbnail, String previewLink, String infoLink,String language) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
@@ -31,6 +32,7 @@ public class Book implements Serializable {
         this.thumbnail = thumbnail;
         this.previewLink = previewLink;
         this.infoLink = infoLink;
+        this.language =language;
     }
 
     public int getId() {
@@ -119,5 +121,22 @@ public class Book implements Serializable {
 
     public void setInfoLink(String infoLink) {
         this.infoLink = infoLink;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String showAuthors() {
+        String listAuthor =authors.get(0);
+        for (int i = 1; i < authors.size(); ++i)
+        {
+            listAuthor += authors.get(i);
+        }
+        return listAuthor;
     }
 }
