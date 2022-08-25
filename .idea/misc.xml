@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_drop_down.xml" value="0.2085" />
         <entry key="app/src/main/res/layout/book_item.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_blank.xml" value="0.29739583333333336" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.29739583333333336" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.28229166666666666" />
         <entry key="app/src/main/res/layout/fragment_search_result.xml" value="0.29739583333333336" />
         <entry key="app/src/main/res/layout/layout.xml" value="0.28229166666666666" />

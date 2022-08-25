@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.example.final_project.R;
+import com.example.final_project.model.Book;
 
 public class MainActivity extends AppCompatActivity {
     FragmentContainerView fragmentContainerView;
@@ -29,6 +30,17 @@ public class MainActivity extends AppCompatActivity {
         resultFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragmentContainerView,resultFragment);
         fragmentTransaction.addToBackStack(SearchResultFragment.TAG);
+        fragmentTransaction.commit();
+    }
+
+    public void gotoDetailFragment(String object, Book book) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        DetailFragment detailFragment = new DetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object",book);
+        detailFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fragmentContainerView,detailFragment);
+        fragmentTransaction.addToBackStack(DetailFragment.TAG);
         fragmentTransaction.commit();
     }
 }

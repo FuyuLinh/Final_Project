@@ -21,14 +21,18 @@ import java.util.List;
 public class BookListAdapter extends  RecyclerView.Adapter<BookListAdapter.BookViewHolder> {
     private Context context;
     private static final String THUMBNAIL_URI_KEY = "smallThumbnail";
-
+    private ICLickItemListener icLickItemListener;
+    public interface ICLickItemListener{
+        void onClickBook(Book book);
+    }
     // creating variables for arraylist and context.
     private ArrayList<Book> bookInfoArrayList;
 
     // creating constructor for array list and context.
-    public BookListAdapter(ArrayList<Book> bookInfoArrayList, Context context) {
+    public BookListAdapter(ArrayList<Book> bookInfoArrayList, Context context,ICLickItemListener listener) {
         this.bookInfoArrayList = bookInfoArrayList;
         this.context = context;
+        this.icLickItemListener =listener;
     }
 
     @Override
@@ -45,16 +49,16 @@ public class BookListAdapter extends  RecyclerView.Adapter<BookListAdapter.BookV
         // setting ou data to each UI component.
         Book book = bookInfoArrayList.get(position);
         holder.nameTV.setText(book.getTitle());
-
-        holder.publisherTV.setText(book.getPublisher());
+        holder.publisherTV.setText(book.showAuthors());
         holder.pageCountTV.setText("No of Pages : " + book.getPageCount());
         holder.dateTV.setText(book.getPublishedDate());
         // below line is use to set image from URL in our image view.
         Picasso.get().load(book.getThumbnail()).into(holder.bookIV);
         // below line is use to add on click listener for our item of recycler view.
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.bookIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                icLickItemListener.onClickBook(book);
             }
         });
     }
