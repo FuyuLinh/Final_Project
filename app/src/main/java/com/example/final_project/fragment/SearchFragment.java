@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.example.final_project.Adapter.FilterAdapter;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
-    private Button searchquery;
+    private RelativeLayout searchquery;
     private EditText query;
     private ImageView appIcon;
     private Spinner spnFilter;
@@ -44,18 +45,18 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search, container, false);
         mainActivity = (MainActivity) getActivity();
-        searchquery = view.findViewById(R.id.searchquery);
+        searchquery = view.findViewById(R.id.SearchButton);
         query = view.findViewById(R.id.query);
         appIcon = view.findViewById(R.id.appIcon);
 
         spnFilter = view.findViewById(R.id.Spiner);
         filterAdapter = new FilterAdapter(mainActivity, R.layout.selected_filter, getListFilter());
         spnFilter.setAdapter(filterAdapter);
-        final String[] filter_search = new String[1];
+        final int[] filter = new int[1];
         spnFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filter_search[0] = new String(filterAdapter.getItem(position).getName());
+                filter[0] = position;
             }
 
             @Override
@@ -67,9 +68,8 @@ public class SearchFragment extends Fragment {
         searchquery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String query_for_search = query.getText().toString();
-                String str = filter_search[0];
-                mainActivity.gotoSearchResults(query_for_search,str);
+                String q = getQuery(query.getText().toString(),filter[0]);
+                mainActivity.gotoSearchResults(q);
             }
         });
         return view;
@@ -77,9 +77,20 @@ public class SearchFragment extends Fragment {
 
     private List<Filter> getListFilter() {
         List<Filter> list = new ArrayList<>();
+        list.add(new Filter("Title"));
         list.add(new Filter("Author"));
-        list.add(new Filter("Tilte"));
-        list.add(new Filter("Published Date"));
         return list;
+    }
+    private String getQuery(String text, int type)
+    {
+        text= text.replaceAll("\\s+", " ");
+        text = text.replace(' ','+');
+        if(type==0)
+            text = "intitle:" + text;
+        else if(type==1)
+            text = "+inauthor:" + text;
+
+
+        return text;
     }
 }

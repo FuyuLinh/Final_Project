@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".fragment.DetailFragment">
+    android:padding="18dp"
+    tools:context=".fragment.DetailFragment"
+    android:background="#ECD8A2"
+    >
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="520dp"
+    android:orientation="vertical"
+    android:background="#ECD8A2">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Back" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,19 +26,34 @@
             android:orientation="horizontal">
 
             <!--Image view for displaying our book image-->
-            <ImageView
-                android:id="@+id/idIVbook"
-                android:layout_width="130dp"
-                android:layout_height="160dp"
-                android:layout_margin="18dp" />
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/bg_search">
+                <ImageView
+                    android:id="@+id/idIVbook"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp" />
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
                 <!--Text view for displaying book publisher-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="Publisher"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
                 <TextView
                     android:id="@+id/idTVpublisher"
                     android:layout_width="match_parent"
@@ -47,26 +64,57 @@
                     android:textSize="15sp" />
 
                 <!--text view for displaying number of pages of book-->
-                <TextView
-                    android:id="@+id/idTVNoOfPages"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:padding="4dp"
-                    android:text="Number of Pages"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:padding="4dp"
+                        android:textStyle="bold"
+                        android:text="Number of Pages:"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/idTVNoOfPages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="4dp"
+                        android:padding="4dp"
+                        android:text="Number"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
 
                 <!--text view for displaying book publish date-->
-                <TextView
-                    android:id="@+id/idTVPublishDate"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:padding="4dp"
-                    android:text="Publish Date"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:padding="4dp"
+                        android:text="Publish Date:"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/idTVPublishDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:padding="4dp"
+                        android:text="Publish Date"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
 
             </LinearLayout>
 
@@ -77,24 +125,43 @@
             android:id="@+id/idTVTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="4dp"
             android:padding="4dp"
             android:text="title"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textStyle="bold"
+            android:textSize="16sp" />
 
         <!--text view for displaying book subtitle-->
         <TextView
             android:id="@+id/idTVSubTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="4dp"
             android:padding="4dp"
             android:text="subtitle"
+            android:textStyle="italic"
             android:textColor="@color/black"
-            android:textSize="12sp" />
-
+            android:textSize="14sp" />
+        <!-- text view for displaying authors-->
+        <TextView
+            android:id="@+id/idTVAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="4dp"
+            android:text="Author"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
         <!--text view for displaying book description-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:padding="4dp"
+            android:text="Description"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
         <TextView
             android:id="@+id/idTVDescription"
             android:layout_width="match_parent"
@@ -103,35 +170,103 @@
             android:padding="4dp"
             android:text="description"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
 
-            <!--button for displaying book preview-->
-            <Button
-                android:id="@+id/idBtnPreview"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:text="Preview"
-                android:textAllCaps="false" />
-
-            <!--button for opening buying page of the book-->
-            <Button
-                android:id="@+id/idBtnBuy"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="1"
-                android:text="Buy"
-                android:textAllCaps="false" />
-
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+
+
+        <!--button for back to search result-->
+        <RelativeLayout
+            android:layout_margin="3dp"
+            android:id="@+id/idBackButton"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_preview">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_preview"
+                android:layout_margin="3dp"
+                app:tint="#fff"
+                />
+            <RelativeLayout
+                android:layout_width="55dp"
+                android:layout_height="42dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="6dp"
+                android:background="@drawable/bg_preview"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_arrow_left"
+                    app:tint="#fff"
+                    android:padding="6dp"
+                    />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:gravity="center"
+                android:text="back"
+                android:textAllCaps="true"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+        <!--button for displaying book preview-->
+        <RelativeLayout
+            android:layout_margin="3dp"
+            android:id="@+id/idBtnPreview"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_preview">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_preview"
+                android:layout_margin="3dp"
+                app:tint="#fff"
+                />
+            <RelativeLayout
+                android:layout_width="55dp"
+                android:layout_height="42dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/bg_preview"
+                >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_arrow_right"
+                    app:tint="#fff"
+                    android:padding="6dp"
+                    />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="40dp"
+                android:gravity="center"
+                android:text="Preview"
+                android:textAllCaps="true"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</LinearLayout>

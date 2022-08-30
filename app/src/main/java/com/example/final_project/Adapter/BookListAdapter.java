@@ -48,9 +48,22 @@ public class BookListAdapter extends  RecyclerView.Adapter<BookListAdapter.BookV
         // inside on bind view holder method we are
         // setting ou data to each UI component.
         Book book = bookInfoArrayList.get(position);
-        holder.nameTV.setText(book.getTitle());
-        holder.publisherTV.setText(book.showAuthors());
-        holder.pageCountTV.setText("No of Pages : " + book.getPageCount());
+        String shortTitle;
+        if(book.getTitle().length()>45)
+        {
+            shortTitle = book.getTitle().substring(0,45)+ " ...";
+        }
+        else
+        {
+            shortTitle = book.getTitle();
+        }
+        holder.nameTV.setText(shortTitle);
+        holder.AuthorTV1.setText(book.showAuthors(1));
+        holder.AuthorTV2.setText(book.showAuthors(2));
+        if(book.getPageCount()==0)
+            holder.pageCountTV.setText("No. of Pages : N/A");
+        else
+            holder.pageCountTV.setText("No. of Pages : " + book.getPageCount());
         holder.dateTV.setText(book.getPublishedDate());
         // below line is use to set image from URL in our image view.
         Picasso.get().load(book.getThumbnail()).into(holder.bookIV);
@@ -73,14 +86,15 @@ public class BookListAdapter extends  RecyclerView.Adapter<BookListAdapter.BookV
     public class BookViewHolder extends RecyclerView.ViewHolder {
         // below line is use to initialize
         // our text view and image views.
-        private TextView nameTV, publisherTV, pageCountTV, dateTV;
+        private TextView nameTV, AuthorTV1,AuthorTV2, pageCountTV, dateTV;
         private ImageView bookIV;
 
         public BookViewHolder(View itemView) {
             super(itemView);
-            nameTV = itemView.findViewById(R.id.idTVBookTitle);
-            publisherTV = itemView.findViewById(R.id.idTVpublisher);
-            pageCountTV = itemView.findViewById(R.id.idTVPageCount);
+            nameTV = itemView.findViewById(R.id.idBookTitle);
+            AuthorTV1 = itemView.findViewById(R.id.idAuthor1);
+            AuthorTV2 = itemView.findViewById(R.id.idAuthor2);
+            pageCountTV = itemView.findViewById(R.id.idPageCount);
             dateTV = itemView.findViewById(R.id.idTVDate);
             bookIV = itemView.findViewById(R.id.idIVbook);
         }

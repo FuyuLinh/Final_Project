@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="18dp"
-    tools:context=".fragment.SearchFragment">
+    tools:context=".fragment.SearchFragment"
+    android:background="#ECD8A2"
+    >
 
 
     <ImageView
@@ -17,24 +20,40 @@
         android:src="@drawable/search_vector_image" />
 
     <EditText
-        android:layout_marginTop="5dp"
-        android:textAlignment="center"
         android:id="@+id/query"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type in book title for searching..."
-        android:inputType="text" />
+        android:layout_marginTop="5dp"
+        android:hint="Type in here for searching..."
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textAlignment="center" />
+        <RelativeLayout
+            android:id="@+id/SearchButton"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_search">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/bg_search"
+                app:tint="#31000000"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/bg_search">
 
-    <Button
-        android:layout_marginTop="10dp"
-        android:background="@color/design_default_color_surface"
-        android:elevation="5dp"
-        android:textColor="@android:color/white"
-        android:textAlignment="center"
-        android:id="@+id/searchquery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Search" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="search"
+                    android:textAllCaps="true"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+        </RelativeLayout>
     <Spinner
         android:id="@+id/Spiner"
         android:layout_width="match_parent"

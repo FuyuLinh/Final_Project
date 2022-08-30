@@ -4,13 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="8dp">
+    app:cardElevation="8dp"
+    android:padding="5dp"
+    >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/idIVbook"
@@ -20,54 +26,75 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp" />
-
-        <TextView
-            android:id="@+id/idTVBookTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_toEndOf="@id/idIVbook"
-            android:padding="3dp"
-            android:text="Book Title"
-            android:textColor="@color/black"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/idTVpublisher"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/idTVBookTitle"
-            android:layout_marginTop="3dp"
-            android:layout_toEndOf="@id/idIVbook"
-            android:padding="3dp"
-            android:text="Publisher"
-            android:textColor="@color/black"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/idTVPageCount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/idTVpublisher"
-            android:layout_marginTop="3dp"
-            android:layout_toEndOf="@id/idIVbook"
-            android:padding="3dp"
-            android:text="Page count"
-            android:textColor="@color/black"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/idTVDate"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/idTVPageCount"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="5dp"
-            android:padding="3dp"
-            android:text="date"
-            android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_search"
+            android:layout_margin="3dp">
+            <TextView
+                android:id="@+id/idBookTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="3dp"
+                android:text="Book Title"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginHorizontal="4dp"/>
 
-    </RelativeLayout>
+            <TextView
+                android:singleLine="false"
+                android:id="@+id/idAuthor1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/idBookTitle"
+                android:layout_marginTop="3dp"
+                android:layout_marginHorizontal="6dp"
+                android:padding="3dp"
+                android:text="Author0"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+            <TextView
+                android:singleLine="false"
+                android:id="@+id/idAuthor2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/idAuthor1"
+                android:layout_marginTop="3dp"
+                android:layout_marginHorizontal="6dp"
+                android:padding="3dp"
+                android:text="Author2"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/idPageCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/idAuthor2"
+                android:layout_marginTop="3dp"
+                android:layout_marginHorizontal="6dp"
+                android:padding="3dp"
+                android:text="Page count"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/idTVDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/idPageCount"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="4dp"
+                android:padding="3dp"
+                android:text="date"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

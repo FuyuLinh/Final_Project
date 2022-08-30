@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +22,8 @@ import java.util.ArrayList;
 public class DetailFragment extends Fragment {
     public static final String TAG = DetailFragment.class.getName();
     private ArrayList<String> authors;
-    TextView titleTV, subtitleTV, publisherTV, descTV, pageTV, publishDateTV;
-    Button backButton,previewBtn, buyBtn;
+    TextView titleTV, subtitleTV, publisherTV, descTV, pageTV, publishDateTV, authorTV;
+    RelativeLayout backButton,previewBtn;
     private ImageView bookIV;
     View view;
     MainActivity mainActivity;
@@ -38,9 +39,9 @@ public class DetailFragment extends Fragment {
         descTV = view.findViewById(R.id.idTVDescription);
         pageTV = view.findViewById(R.id.idTVNoOfPages);
         publishDateTV = view.findViewById(R.id.idTVPublishDate);
+        authorTV = view.findViewById(R.id.idTVAuthor);
         previewBtn = view.findViewById(R.id.idBtnPreview);
-        backButton = view.findViewById(R.id.backButton);
-        buyBtn = view.findViewById(R.id.idBtnBuy);
+        backButton = view.findViewById(R.id.idBackButton);
         bookIV = view.findViewById(R.id.idIVbook);
 
         mainActivity = (MainActivity)getActivity();
@@ -51,9 +52,10 @@ public class DetailFragment extends Fragment {
                 titleTV.setText(book.getTitle());
                 subtitleTV.setText(book.getSubtitle());
                 publisherTV.setText(book.getPublisher());
-                publishDateTV.setText("Published On : " + book.getPublishedDate());
+                publishDateTV.setText(book.getPublishedDate());
+                authorTV.setText(book.allAuthors());
                 descTV.setText(book.getDescription());
-                pageTV.setText("No Of Pages : " + book.getPageCount());
+                pageTV.setText(String.valueOf(book.getPageCount()));
                 Picasso.get().load(book.getThumbnail()).into(bookIV);
                 previewBtn.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -131,11 +131,20 @@ public class Book implements Serializable {
         this.language = language;
     }
 
-    public String showAuthors() {
-        String listAuthor =authors.get(0);
-        for (int i = 1; i < authors.size(); ++i)
+    public String showAuthors(int i) {
+        String listAuthor = "";
+        if(i<=authors.size())
         {
-            listAuthor += authors.get(i);
+            listAuthor += authors.get(i-1);
+        }
+        return listAuthor;
+    }
+    public String allAuthors()
+    {
+        String listAuthor = authors.get(0);
+        for (int i =1 ;i<authors.size();++i)
+        {
+            listAuthor += "\n"+ authors.get(i);
         }
         return listAuthor;
     }

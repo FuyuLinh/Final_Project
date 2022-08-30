@@ -22,18 +22,18 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public void gotoSearchResults(String querry, String filter){
+    public void gotoSearchResults(String q){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         SearchResultFragment resultFragment = new SearchResultFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("query_for_search",querry +'/'+ filter);
+        bundle.putSerializable("query",q);
         resultFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragmentContainerView,resultFragment);
         fragmentTransaction.addToBackStack(SearchResultFragment.TAG);
         fragmentTransaction.commit();
     }
 
-    public void gotoDetailFragment(String object, Book book) {
+    public void gotoDetailFragment(Book book) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         DetailFragment detailFragment = new DetailFragment();
         Bundle bundle = new Bundle();

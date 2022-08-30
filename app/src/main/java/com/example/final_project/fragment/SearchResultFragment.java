@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,31 +37,55 @@ import java.util.ArrayList;
 
 public class SearchResultFragment extends Fragment {
     public static final String TAG = SearchResultFragment.class.getName();
-    TextView textView;
     View view;
     MainActivity mainActivity;
-    Button backButton;
-
+    RelativeLayout homeButton, backButton, nextButton;
+    TextView pageNum;
     private RequestQueue mRequestQueue;
     private ArrayList<Book> bookInfoArrayList;
-
+    int page;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_search_result, container, false);
-        textView = view.findViewById(R.id.textview);
-        backButton = view.findViewById(R.id.button2);
+        homeButton = view.findViewById(R.id.button2);
+        backButton = view.findViewById(R.id.button3);
+        nextButton = view.findViewById(R.id.button4);
+        pageNum = view.findViewById(R.id.PageNum);
         mainActivity = (MainActivity)getActivity();
+
         Bundle bundleReceive = getArguments();
         if(bundleReceive!= null) {
-            String str= (String) bundleReceive.get("query_for_search");
-            String query= str.substring(0,str.indexOf('/'));
-            if(query!=null) {
-                textView.setText(query);
-                getBooksInfo(query);
+            String q= (String) bundleReceive.get("query");
+            if(q!=null) {
+                page = 0;
+                pageNum.setText(String.valueOf(page+1));
+                getBooksInfo(q,page);
+                nextButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(page < 4)
+                        {
+                            page+=1;
+                            pageNum.setText(String.valueOf(page+1));
+                            getBooksInfo(q,page);
+                        }
+                    }
+                });
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(page > 0)
+                        {
+                            page-=1;
+                            pageNum.setText(String.valueOf(page+1));
+                            getBooksInfo(q,page);
+                        }
+                    }
+                });
             }
         }
-        backButton.setOnClickListener(new View.OnClickListener() {
+        homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(getParentFragmentManager()!=null) {
@@ -72,7 +97,8 @@ public class SearchResultFragment extends Fragment {
         return view;
     }
 
-    private void getBooksInfo(String query) {
+    private void getBooksInfo(String query, int page) {
+        query = query + "&maxResults=40&startIndex=" + String.valueOf(40*page);
         // creating a new array list.
         bookInfoArrayList = new ArrayList<>();
         // below line is use to initialize
@@ -83,7 +109,7 @@ public class SearchResultFragment extends Fragment {
         // will be use when our data is being updated.
         mRequestQueue.getCache().clear();
         // below is the url for getting data from API in json format.
-        String url = "https://www.googleapis.com/books/v1/volumes?q=" + query + "&maxResults=40&key=AIzaSyAIB6Wjw3bm_yiGn1kuFdqbbV7LPa1hzNs";
+        String url = "https://www.googleapis.com/books/v1/volumes?q="+ query + "&key=AIzaSyAIB6Wjw3bm_yiGn1kuFdqbbV7LPa1hzNs";
 
         // below line we are  creating a new request queue.
         RequestQueue queue = Volley.newRequestQueue(mainActivity);
@@ -91,6 +117,7 @@ public class SearchResultFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 // inside on response method we are extracting all our json data.
+                String title,subtitle, publisher, publishedDate;
                 try {
                     JSONArray itemsArray = response.getJSONArray("items");
                     for (int i = 0; i < itemsArray.length(); i++) {
@@ -98,35 +125,22 @@ public class SearchResultFragment extends Fragment {
                         JSONObject itemsObj = itemsArray.getJSONObject(i);
                         JSONObject volumeObj = itemsObj.getJSONObject("volumeInfo");
                         String language = volumeObj.optString("language");
-                        if(language.equals("en")) {
-                            String title = volumeObj.optString("title");
-                            String subtitle = volumeObj.optString("subtitle");
-                            if(volumeObj.has("authors")) {
-                                JSONArray authorsArray = volumeObj.getJSONArray("authors");
-                                if (authorsArray.length() != 0) {
-                                    for (int j = 0; j < authorsArray.length(); j++) {
-                                        authors.add(authorsArray.optString(j));
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                authors.add("No author");
-                            }
+                        // only search book has Language is English
+                        if(language.equals("en") && volumeObj.has("imageLinks") && volumeObj.has("title") && volumeObj.has("authors")) {
+                            title = getTitle(volumeObj);
+                            subtitle = getSubtitle(volumeObj);
+                            getAuthor(authors, volumeObj);
+                            publisher = getPublisher(volumeObj);
+                            publishedDate = getPublishedDate(volumeObj);
 
-                            String publisher = volumeObj.optString("publisher");
-                            String publishedDate = volumeObj.optString("publishedDate");
-                            String description = volumeObj.optString("description");
+                            String description = getDescription(volumeObj);
                             int pageCount = volumeObj.optInt("pageCount");
                             JSONObject imageLinks = volumeObj.optJSONObject("imageLinks");
                             String thumbnail = imageLinks.optString("thumbnail");
                             String previewLink = volumeObj.optString("previewLink");
                             String infoLink = volumeObj.optString("infoLink");
                             JSONObject saleInfoObj = itemsObj.optJSONObject("saleInfo");
-                            //String buyLink = saleInfoObj.optString("buyLink");
 
-                            // after extracting all the data we are
-                            // saving this data in our modal class.
                             String base = thumbnail.substring(5);
                             thumbnail = "https:" + base;
                             Book book = new Book(i, title, subtitle, authors, publisher, publishedDate, description, pageCount, thumbnail, previewLink, infoLink, language);
@@ -138,29 +152,29 @@ public class SearchResultFragment extends Fragment {
                             // below line is use to pass our
                             // array list in adapter class.
                         }
-                        BookListAdapter adapter = new BookListAdapter(bookInfoArrayList, mainActivity, new BookListAdapter.ICLickItemListener() {
-                            @Override
-                            public void onClickBook(Book book) {
-                                mainActivity.gotoDetailFragment("object",book);
-                            }
-                        });
-
-                        // below line is use to add linear layout
-                        // manager for our recycler view.
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.VERTICAL, false);
-                        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.idRVBooks);
-
-                        // in below line we are setting layout manager and
-                        // adapter to our recycler view.
-                        mRecyclerView.setLayoutManager(linearLayoutManager);
-                        mRecyclerView.setAdapter(adapter);
                     }
+                    // Recycler view
+                    BookListAdapter adapter = new BookListAdapter(bookInfoArrayList, view.getContext(), new BookListAdapter.ICLickItemListener() {
+                        @Override
+                        public void onClickBook(Book book) {
+                            mainActivity.gotoDetailFragment(book);
+                        }
+                    });
+
+                    // below line is use to add linear layout
+                    // manager for our recycler view.
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.VERTICAL, false);
+                    RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.idRVBooks);
+                    mRecyclerView.setLayoutManager(linearLayoutManager);
+                    mRecyclerView.setAdapter(adapter);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     // displaying a toast message when we get any error from API
                     Toast.makeText(mainActivity, "No Data Found" + e, Toast.LENGTH_SHORT).show();
                 }
             }
+
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -172,5 +186,51 @@ public class SearchResultFragment extends Fragment {
         // request in our request queue.
         queue.add(booksObjrequest);
     }
+    private void getAuthor(ArrayList<String> authors, JSONObject volumeObj) throws JSONException {
+        if(volumeObj.has("authors")) {
+            JSONArray authorsArray = volumeObj.getJSONArray("authors");
+            if (authorsArray.length() != 0) {
+                for (int j = 0; j < authorsArray.length(); j++) {
+                    authors.add(authorsArray.optString(j));
+                }
+            }
+        }
+        else
+        {
+            authors.add("No author's info");
+        }
+    }
+    private String getTitle( JSONObject volumeObj) throws JSONException {
+        if (volumeObj.has("title")) {
+            return volumeObj.optString("title");
+        } else
+            return "No info";
+    }
+    private String getSubtitle( JSONObject volumeObj) throws JSONException {
+        if (volumeObj.has("subtitle")) {
+            return volumeObj.optString("subtitle");
+        } else
+            return "----------------";
+    }
+    private String getPublisher( JSONObject volumeObj) throws JSONException {
+        if (volumeObj.has("publisher")) {
+            return volumeObj.optString("publisher");
+        } else
+            return "----------------";
+    }
+    private String getPublishedDate( JSONObject volumeObj) throws JSONException {
+        if(volumeObj.has("publishedDate")){
+            return volumeObj.optString("publishedDate");
+        }
+        else
+            return "----------------";
+    }
+    private String getDescription( JSONObject volumeObj) throws JSONException {
+        if (volumeObj.has("description")) {
+            return volumeObj.optString("description");
+        } else
+            return "----------------";
+    }
+
 }
 
